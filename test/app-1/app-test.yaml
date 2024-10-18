@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-app
+  namespace: argocd
+spec:
+  project: infra  # Link this app to the infra project
+  source:
+    repoURL: '*'
+    targetRevision: main
+    path: test
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: test-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
